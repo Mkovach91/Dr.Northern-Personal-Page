@@ -20,6 +20,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   student   Student? 
+  registrationCode RegistrationCode?
 }
 
 model Student {
@@ -35,6 +36,16 @@ model Lab {
   name        String
   description String
   students    Student[]
+}
+
+model RegistrationCode {
+  id         Int      @id @default(autoincrement())
+  code       String   @unique
+  isUsed     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  usedAt     DateTime?
+  userId     Int?     @unique 
+  user       User?    @relation(fields: [userId], references: [id])
 }
 
 enum Role {
