@@ -10,55 +10,62 @@ function createToken(userId, role) {
   return jwt.sign({ id: userId, role }, JWT_SECRET, { expiresIn: "1d" });
 }
 
+// Middleware to parse and verify JWT
 router.use(async (req, res, next) => {
   const authHeader = req.headers.authorization;
   console.log("AUTH HEADER:", authHeader);
-  const token = authHeader?.slice(7);
+  const token = authHeader?.slice(7); 
   console.log("TOKEN", token);
+
   if (!token) return next();
-  
+
   try {
     const { id } = jwt.verify(token, JWT_SECRET);
     console.log("Decoded Token ID:", id);
-    const user = await prisma.user.findUniqueOrThrow({ where: { id }});
-    console.log("USER", user)
+    const user = await prisma.user.findUniqueOrThrow({ where: { id } });
+    console.log("USER", user);
     req.user = user;
     next();
   } catch (error) {
-    next({ status: 401, message: `You're not logged in` })
+    next({ status: 401, message: `You're not logged in` });
   }
 });
 
-
+// Register route
 router.post("/register", async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { email, password, role } = req.body;
 
-  if (!username || !email || !password) {
-    return next({ status: 400, message: "Username, email, and password are required" });
+  if (!email || !password) {
+    return next({ status: 400, message: "Email and password are required" });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
-      data: { username, email, password: hashedPassword },
+      data: { email, password: hashedPassword, role: role || "USER" },
     });
 
-    const token = createToken(user.id);
-    res.status(201).json({ token });
+    const token = createToken(user.id, user.role);
+    res.status(201).json({ token, role: user.role });
   } catch (error) {
-    next(error);
+    if (error.code === "P2002") {
+      next({ status: 400, message: "Email is already registered" });
+    } else {
+      next(error);
+    }
   }
 });
 
+// Login route
 router.post("/login", async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) {
-    return next({ status: 400, message: "Username and password are required" });
+  if (!email || !password) {
+    return next({ status: 400, message: "Email and password are required" });
   }
 
   try {
-    const user = await prisma.user.findUniqueOrThrow({ where: { username } });
+    const user = await prisma.user.findUniqueOrThrow({ where: { email } });
     const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
@@ -66,13 +73,17 @@ router.post("/login", async (req, res, next) => {
     }
 
     const token = createToken(user.id, user.role);
-
     res.json({ token, role: user.role });
   } catch (error) {
-    next(error);
+    if (error.name === "NotFoundError") {
+      next({ status: 404, message: "User not found" });
+    } else {
+      next(error);
+    }
   }
 });
 
+// Middleware to protect routes
 function authenticate(req, res, next) {
   if (req.user) {
     return next();
