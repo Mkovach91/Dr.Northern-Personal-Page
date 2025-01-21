@@ -1,6 +1,7 @@
 ### User Registration
 POST http://localhost:3000/register
 Content-Type: application/json
+
 {
   "email": "test@school.com",
   "password": "password123",
