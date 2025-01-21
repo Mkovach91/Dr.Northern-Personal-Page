@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 async function main() {
-  // Create the admin user
   const adminPassword = process.env.ADMIN_PASSWORD;
   const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
 
