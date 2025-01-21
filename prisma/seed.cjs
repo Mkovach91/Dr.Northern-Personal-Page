@@ -1,10 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 async function main() {
   // Create the admin user
-  const adminPasswordHash = await bcrypt.hash("Adam1$on!", 10);
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
 
   const admin = await prisma.user.create({
     data: {
