@@ -3,9 +3,9 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-  "email": "test@school.com",
-  "password": "password123",
-  "role": "STUDENT"
+  "email": "student@example.com",
+  "password": "strongpassword123",
+  "registrationCode": "STUDENT2023"
 }
 
 ### User Login
