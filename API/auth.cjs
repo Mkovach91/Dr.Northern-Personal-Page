@@ -33,19 +33,41 @@ router.use(async (req, res, next) => {
 
 // Register route
 router.post("/register", async (req, res, next) => {
-  const { email, password, role } = req.body;
+  const { email, password, registrationCode } = req.body;
 
-  if (!email || !password) {
-    return next({ status: 400, message: "Email and password are required" });
+  if (!email || !password || !registrationCode) {
+    return next({
+      status: 400,
+      message: "Email, password, and registration code are required",
+    });
   }
 
   try {
+    const code = await prisma.registrationCode.findUnique({
+      where: { code: registrationCode },
+    });
+
+    if (!code) {
+      return next({ status: 400, message: "Invalid registration code" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
-      data: { email, password: hashedPassword, role: role || "USER" },
+      data: {
+        email,
+        password: hashedPassword,
+        role: "STUDENT", 
+        student: {
+          create: {
+            enrolledAt: new Date(),
+          },
+        },
+      },
     });
 
     const token = createToken(user.id, user.role);
+
     res.status(201).json({ token, role: user.role });
   } catch (error) {
     if (error.code === "P2002") {
