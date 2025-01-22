@@ -18,6 +18,16 @@ Content-Type: application/json
   "password": "password123"
 }
 
+### User Login
+# @name login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "penorthern@semo.edu",
+  "password": "Adam1$on!"
+}
+
 ### Get user information
 @token = {{login.response.body.token}}
 GET http://localhost:3000/users
@@ -26,3 +36,36 @@ Authorization: Bearer {{token}}
 ### Test Admin Backend
 GET http://localhost:3000/admin
 Authorization: Bearer {{token}}
+
+### Get all Labs
+GET http://localhost:3000/labs
+Authorization: Bearer {{token}}
+
+### Get a single lab
+GET http://localhost:3000/labs/1
+Authorization: Bearer {{token}}
+
+### Create a new lab
+POST http://localhost:3000/labs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Physc Lab",
+  "description": "A lab focused on cognative experiments.",
+  "studentIds": [1, 2]
+}
+
+### Add a student to a lab
+POST http://localhost:3000/labs/1/students
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "studentId": 3
+}
+
+### Remove a student from a lab
+DELETE http://localhost:3000/labs/1/students/3
+Authorization: Bearer {{token}}
+
