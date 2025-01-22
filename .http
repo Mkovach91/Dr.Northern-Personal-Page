@@ -17,3 +17,9 @@ Content-Type: application/json
   "email": "test@school.com",
   "password": "password123"
 }
+
+### Get user information
+@token = {{login.response.body.token}}
+GET http://localhost:3000/users
+Authorization: Bearer {{token}}
+
