@@ -13,7 +13,7 @@ function isAdmin(req, res, next) {
 
 router.use(authenticate);
 
-router.get("/", async (req, res, next) => {
+router.get("/", isAdmin, async (req, res, next) => {
   try {
     if (req.user.role === "ADMIN") {
       const users = await prisma.user.findMany({
