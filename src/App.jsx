@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./navbar";
 import Home from "./pages/home";
-// import Login from "./pages/login";
-// import Register from "./pages/register";
-// import AdminDashboard from "./pages/admin-dashboard";
-// import Labs from "./pages/labs";
-// import Account from "./pages/account";
+
 
 
 function App() {
@@ -14,17 +10,15 @@ function App() {
   const [token, setToken] = useState("")
 
   return (
-
     <>
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-
-
-      </Routes>
-
+      <div className="container my-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
     </>
-  )
+  );
 }
 
 export default App

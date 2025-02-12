@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"
 
 const NavBar = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isStudent, setIsStudent] = useState(false);
+  // For this example, we no longer need state for the collapse
+  // You can still use state for auth-based conditionals if needed.
+  let isAdmin = false;
+  let isStudent = false;
   const token = localStorage.getItem("token");
   const isLoggedIn = !!token;
 
@@ -12,27 +14,64 @@ const NavBar = () => {
     if (isLoggedIn && token) {
       try {
         const decodedToken = jwtDecode(token);
-        setIsAdmin(decodedToken?.role === "ADMIN");
-        setIsStudent(decodedToken?.role === "STUDENT");
+        isAdmin = decodedToken?.role === "ADMIN";
+        isStudent = decodedToken?.role === "STUDENT";
       } catch (error) {
         console.error("Failed to decode token:", error);
       }
-    } else {
-      setIsAdmin(false);
-      setIsStudent(false);
     }
   }, [isLoggedIn, token]);
 
   return (
-    <nav className="navbar-list">
-      <Link to="/">Home</Link>
-      {!isLoggedIn && <Link to="/register">Register</Link>}
-      {!isLoggedIn && <Link to="/login">Login</Link>}
-      {isStudent && <Link to="/labs">Labs</Link>}
-      {isAdmin && <Link to="/admin/dashboard">Admin Dashboard</Link>}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div className="container-fluid">
+        {/* Navbar brand */}
+        <Link className="navbar-brand" to="/">Home</Link>
+
+        {/* Bootstrap collapse toggler */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"              // Let Bootstrap handle the collapse
+          data-bs-target="#navbarNav"            // Target the collapsible element
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        {/* Collapsible content */}
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Home</Link>
+            </li>
+            {!isLoggedIn && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+              </>
+            )}
+            {isStudent && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/labs">Labs</Link>
+              </li>
+            )}
+            {isAdmin && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/admin/dashboard">Admin Dashboard</Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 };
 
 export default NavBar;
-
