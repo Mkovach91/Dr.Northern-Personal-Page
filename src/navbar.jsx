@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"
 
+
 const NavBar = () => {
   // For this example, we no longer need state for the collapse
   // You can still use state for auth-based conditionals if needed.
@@ -30,7 +31,7 @@ const NavBar = () => {
         <img
             src="assets2\semo images\primary-logo-red.png"
             alt="Home"
-            style={{ height: "65px", width: "auto" }}
+            style={{ height: "70px", width: "auto" }}
           />
         </Link>
 
