@@ -23,17 +23,23 @@ const NavBar = () => {
   }, [isLoggedIn, token]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark ">
       <div className="container-fluid">
         {/* Navbar brand */}
-        <Link className="navbar-brand" to="/">Home</Link>
+        <Link className="navbar-brand" to="/">
+        <img
+            src="assets2\semo images\primary-logo-red.png"
+            alt="Home"
+            style={{ height: "65px", width: "auto" }}
+          />
+        </Link>
 
         {/* Bootstrap collapse toggler */}
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"              // Let Bootstrap handle the collapse
-          data-bs-target="#navbarNav"            // Target the collapsible element
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -47,11 +53,12 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">Register</Link>
+            </li>
             {!isLoggedIn && (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
-                </li>
+
                 <li className="nav-item">
                   <Link className="nav-link" to="/login">Login</Link>
                 </li>
