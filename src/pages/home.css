@@ -1,35 +1,81 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+/* Mobile Navigation Toggler */
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: block;  
+  }
 }
 
+/* Header Styling */
 header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  align-items: center;
+  background-color: #c8102e; /* SEMO Red */
+  padding: 20px;
+  color: white;
+  border-bottom: 4px solid #000000; 
 }
 
 header h1 {
-  margin-bottom: 5px;
+  font-size: 2rem;
+  margin: 0;
 }
 
 header h2 {
-  font-size: 1.2rem;
-  font-weight: normal;
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
 }
 
 header img {
-  width: 120px;
-  height: 120px;
+  width: auto;
+  height: 125px;
   border-radius: 50%;
-  border: 4px solid #ddd;
   object-fit: cover;
+  border: 4px solid #fff; 
 }
 
-section {
-  margin-bottom: 20px;
+.navbar {
+  background-color: #c8102e; /* SEMO Red */
 }
+
+.navbar-list {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link {
+    font-size: 1.3rem;
+  }
+}
+
+.nav-link:hover {
+  background-color: #6e1515; 
+  border-radius: 25px;       
+}
+
+
+section {
+  padding: 40px 20px;
+  background-color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
 
 .about-me {
   display: flex;
@@ -38,18 +84,33 @@ section {
 }
 
 .about-me-content {
-  flex: 1; 
+  flex: 1;
 }
 
+
 .slider-container {
-  width: 40%; 
+  width: 40%;
   max-width: 400px;
+  margin: 0 auto;
 }
 
 .slider-container img {
-  width: 65%;
+  width: 100%;
   height: auto;
   border-radius: 10px;
   background-color: #f0f0f0;
 }
 
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #c8102e; /* SEMO Red */
+  color: white;
+  margin-top: 50px;
+  border-top: 4px solid #000000; 
+}
+
+footer p {
+  margin: 0;
+}
