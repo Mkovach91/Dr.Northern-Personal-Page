@@ -61,3 +61,36 @@ export const getAdminDashboard = async (token) => {
   const dashboardData = await response.json();
   return dashboardData;
 };
+
+export const getStudentLabs = async (token) => {
+  const response = await fetch(`${APIURL}/labs`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  return response.json();
+};
+
+export const verifyRegistrationCode = async (code) => {
+  const response = await fetch(`${APIURL}/verify-code`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code }),
+  });
+  return response.json();
+};
+
+export const logoutUser = () => {
+  localStorage.removeItem("token");
+};
+
+export const getLabDetails = async (labId, token) => {
+  const response = await fetch(`${APIURL}/labs/${labId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  return response.json();
+};
