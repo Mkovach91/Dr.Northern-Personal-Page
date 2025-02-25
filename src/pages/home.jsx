@@ -13,6 +13,7 @@ const Home = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    arrows: false,
   };
 
   const images = [
@@ -79,10 +80,10 @@ const Home = () => {
             </p>
             <p>
               My favorite hobbies include playing games (e.g., Magic: The Gathering,
-              D&D, Stardew Valley), gardening, hiking, reading, and spending time
+              D&D, World of Warcraft), gardening, hiking, reading, and spending time
               with my family.
             </p>
-            <p>See the pictures of all of us below!</p>
+            <p>See the pictures of all of us to the right!</p>
           </div>
           <div className="slider-container">
             <Slider {...settings}>

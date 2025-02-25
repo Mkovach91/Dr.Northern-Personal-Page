@@ -1,13 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(require("morgan")("dev"));
+app.use(express.json());
+
 const userRoutes = require('./API/users.cjs') 
 const adminRoute = require('./API/admin-dashboard.cjs')
 const studentLabs = require('./API/labs.cjs')
 const changePasswordRoutes = require('./API/change-password.cjs')
-
-app.use(require("morgan")("dev"));
-app.use(express.json());
 
 app.use(require("./API/auth.cjs").router);
 app.use("/users", userRoutes);
