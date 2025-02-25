@@ -1,0 +1,93 @@
+/* Background Gradient (Darker and Softer) */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #c8102e, #4e0e0e); /* Deep SEMO Red */
+  color: white;
+}
+
+/* Login Form Container */
+.login-container {
+  background: rgba(0, 0, 0, 0.5); /* Dark, semi-transparent background */
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Title */
+.login-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffb3c6; /* Soft red/pink */
+}
+
+/* Form */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Input Focus */
+.input-field:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(255, 179, 198, 0.8); /* Soft glow */
+}
+
+/* Placeholder */
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Login Button */
+.submit-button {
+  background: linear-gradient(135deg, #ffb3c6, #c8102e); /* Light to deep red */
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #ff8fa3, #6e1515); /* Darker red */
+  transform: scale(1.05);
+}
+
+/* Labels */
+label {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .login-container {
+    width: 90%;
+  }
+}
+
