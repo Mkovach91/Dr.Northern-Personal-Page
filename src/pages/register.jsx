@@ -7,11 +7,12 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registrationCode, setRegistrationCode] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userData = { username, email, password };
+    const userData = { username, email, password, registrationCode };
 
     try {
       const response = await registerUser(userData);
@@ -29,7 +30,7 @@ const Register = () => {
 
   return (
     <div className="page-container">
-      <div className="login-container">
+      <div className="login-container"> 
         <h2>Register</h2>
         <form className="form-container" onSubmit={handleSubmit}>
           <label>
@@ -60,6 +61,16 @@ const Register = () => {
               onChange={(event) => setPassword(event.target.value)}
               className="input-field"
               placeholder="Create a password"
+            />
+          </label>
+          <label>
+            Registration Code:
+            <input
+              type="text"
+              value={registrationCode}
+              onChange={(event) => setRegistrationCode(event.target.value)}
+              className="input-field"
+              placeholder="Enter your registration code"
             />
           </label>
           <button className="submit-button" type="submit">Register</button>
