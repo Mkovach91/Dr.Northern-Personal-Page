@@ -5,20 +5,20 @@ import "./login.css"
 
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const credentials = { username, password };
+    const credentials = { email, password };
 
     try {
       const response = await loginUser(credentials);
       if (response.token) {
         console.log('Token:', response.token);
         localStorage.setItem('token', response.token);
-        navigate('/account');
+        navigate('/');
       } else {
         console.log('Login failed');
       }
@@ -33,11 +33,11 @@ const Login = () => {
         <h2>Login</h2>
         <form className="form-container" onSubmit={handleSubmit}>
           <label>
-            <b>Username:</b>
+            <b>Email:</b>
             <input
               type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               className="input-field"
             />
           </label>
