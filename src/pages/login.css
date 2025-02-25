@@ -1,16 +1,18 @@
-/* Background Gradient (Darker and Softer) */
+body {
+  background: linear-gradient(-45deg, #c8102e, #4e0e0e); 
+}
+
 .page-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #c8102e, #4e0e0e); /* Deep SEMO Red */
+  background: linear-gradient(135deg, #c8102e, #4e0e0e); 
   color: white;
 }
 
-/* Login Form Container */
 .login-container {
-  background: rgba(0, 0, 0, 0.5); /* Dark, semi-transparent background */
+  background: rgba(0, 0, 0, 0.5); 
   padding: 2rem;
   border-radius: 10px;
   width: 100%;
@@ -19,21 +21,20 @@
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Title */
+
 .login-container h2 {
   margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: bold;
-  color: #ffb3c6; /* Soft red/pink */
+  color: #ffb3c6; 
 }
 
-/* Form */
 .form-container {
   display: flex;
   flex-direction: column;
 }
 
-/* Input Fields */
+
 .input-field {
   width: 100%;
   padding: 12px;
@@ -46,21 +47,21 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Input Focus */
+
 .input-field:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 8px rgba(255, 179, 198, 0.8); /* Soft glow */
+  box-shadow: 0 0 8px rgba(255, 179, 198, 0.8); 
 }
 
-/* Placeholder */
+
 .input-field::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Login Button */
+
 .submit-button {
-  background: linear-gradient(135deg, #ffb3c6, #c8102e); /* Light to deep red */
+  background: linear-gradient(135deg, #ffb3c6, #c8102e); 
   border: none;
   padding: 12px;
   border-radius: 8px;
@@ -72,11 +73,11 @@
 }
 
 .submit-button:hover {
-  background: linear-gradient(135deg, #ff8fa3, #6e1515); /* Darker red */
+  background: linear-gradient(135deg, #ff8fa3, #6e1515); 
   transform: scale(1.05);
 }
 
-/* Labels */
+
 label {
   color: white;
   font-weight: bold;
@@ -84,7 +85,8 @@ label {
   display: block;
 }
 
-/* Responsive */
+
+
 @media (max-width: 600px) {
   .login-container {
     width: 90%;
