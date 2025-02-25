@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 import "./login.css"
 
 
@@ -8,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,7 +19,7 @@ const Login = () => {
       const response = await loginUser(credentials);
       if (response.token) {
         console.log('Token:', response.token);
-        localStorage.setItem('token', response.token);
+        login(response);
         navigate('/');
       } else {
         console.log('Login failed');
