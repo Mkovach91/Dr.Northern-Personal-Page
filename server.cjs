@@ -1,22 +1,44 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
+const http = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*", 
+    methods: ["GET", "POST"]
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
+
 app.use(cors());
-app.use(require("morgan")("dev"));
+app.use(morgan("dev"));
 app.use(express.json());
 
-const userRoutes = require('./API/users.cjs') 
-const adminRoute = require('./API/admin-dashboard.cjs')
-const studentLabs = require('./API/labs.cjs')
-const changePasswordRoutes = require('./API/change-password.cjs')
 
 app.use(require("./API/auth.cjs").router);
-app.use("/users", userRoutes);
-app.use("/admin", adminRoute);
-app.use("/labs", studentLabs);
-app.use("/change-password", changePasswordRoutes);
+app.use("/users", require('./API/users.cjs'));
+app.use("/admin", require('./API/admin-dashboard.cjs'));
+app.use("/labs", require('./API/labs.cjs'));
+app.use("/change-password", require('./API/change-password.cjs'));
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("new message sent", (msg) => {
+    console.log("Broadcasting message:", msg);
+    io.emit("new message to relay", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 app.use((req, res, next) => {
   next({ status: 404, message: "Endpoint not found." });
@@ -24,10 +46,10 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.status ?? 500);
-  res.json(err.message ?? "Sorry, something broke :(");
+  res.status(err.status ?? 500).json(err.message ?? "Sorry, something broke :(");
 });
 
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
