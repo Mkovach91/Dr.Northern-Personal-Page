@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const http = require("http");
 const { Server } = require("socket.io");
+const calendarRoutes = require('./API/calendar.cjs');
 
 const app = express();
 const server = http.createServer(app);
@@ -26,6 +27,7 @@ app.use("/users", require('./API/users.cjs'));
 app.use("/admin", require('./API/admin-dashboard.cjs'));
 app.use("/labs", require('./API/labs.cjs'));
 app.use("/change-password", require('./API/change-password.cjs'));
+app.use('/api/calendar', calendarRoutes);
 
 io.on("connection", (socket) => {
   console.log("A user connected");

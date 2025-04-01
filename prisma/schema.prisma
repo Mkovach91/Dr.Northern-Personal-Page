@@ -8,42 +8,52 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" 
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
-  password   String
-  role       Role      @default(USER)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  student    Student?
-  code       RegistrationCode? @relation(fields: [registrationCodeId], references: [id])
+  id                 Int               @id @default(autoincrement())
+  email              String            @unique
+  password           String
+  role               Role              @default(USER)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  student            Student?
+  code               RegistrationCode? @relation(fields: [registrationCodeId], references: [id])
   registrationCodeId Int?
+  comments           CalendarComment[]
 }
 
 model Student {
-  id        Int      @id @default(autoincrement())
-  userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   enrolledAt DateTime @default(now())
-  labs      Lab[]
+  labs       Lab[]
 }
 
 model Lab {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String
   students    Student[]
 }
 
 model RegistrationCode {
-  id         Int     @id @default(autoincrement())
-  code       String  @unique
-  createdAt  DateTime @default(now())
-  users      User[]  
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  createdAt DateTime @default(now())
+  users     User[]
+}
+
+model CalendarComment {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  comment   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 enum Role {
