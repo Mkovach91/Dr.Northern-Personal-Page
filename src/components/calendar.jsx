@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 const SharedCalendar = () => {
   const [markedDates, setMarkedDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -10,35 +12,58 @@ const SharedCalendar = () => {
 
   // Load marked dates on mount
   useEffect(() => {
-    fetch('/api/calendar')
+    const token = localStorage.getItem("token");
+  
+    fetch(`${API_BASE}/api/calendar`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => setMarkedDates(data));
   }, []);
 
   const onDateClick = async (date) => {
     setSelectedDate(date);
-    const response = await fetch(`/api/calendar/comments?date=${date.toISOString()}`);
+    const token = localStorage.getItem("token");
+  
+    const response = await fetch(`${API_BASE}/api/calendar/comments?date=${date.toISOString()}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  
+    if (!response.ok) {
+      console.error("Failed to fetch comments:", await response.text());
+      return;
+    }
+  
     const data = await response.json();
     setComments(data);
   };
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) return;
-
-    const response = await fetch('/api/calendar/comments', {
+    const token = localStorage.getItem("token");
+  
+    const response = await fetch(`${API_BASE}/api/calendar/comments`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({ date: selectedDate, comment: newComment })
     });
-
+  
     if (response.ok) {
       const updated = await response.json();
       setComments(updated);
       setMarkedDates((prev) => [...new Set([...prev, selectedDate])]);
       setNewComment("");
+    } else {
+      console.error("Comment failed:", await response.text());
     }
   };
-
   return (
     <div>
       <Calendar

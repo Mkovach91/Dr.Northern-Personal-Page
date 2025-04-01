@@ -32,7 +32,7 @@ router.get("/comments", async (req, res, next) => {
       include: { user: true }
     });
 
-    res.json(comments.map(c => `${c.user.name}: ${c.comment}`));
+    res.json(comments.map(c => `${c.user.email}: ${c.comment}`));
   } catch (error) {
     next(error);
   }
