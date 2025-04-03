@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import '../pages/labs.css'
 
-const socket = io("http://localhost:3000"); 
+const socket = io("http://localhost:3000");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -25,18 +26,22 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <div style={{ height: 200, overflowY: "auto", border: "1px solid #ccc", padding: "0.5rem" }}>
+    <div className="chat-box">
+      <div className="chat-messages">
         {messages.map((msg, i) => (
-          <div key={i}>{msg}</div>
+          <div key={i} className="chat-message">
+            {msg}
+          </div>
         ))}
       </div>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type your message"
-      />
-      <button onClick={sendMessage}>Send</button>
+      <div className="chat-input">
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type your message"
+        />
+        <button onClick={sendMessage}>Send</button>
+      </div>
     </div>
   );
 };
