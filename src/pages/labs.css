@@ -1,0 +1,19 @@
+.react-calendar {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.4rem;
+}
+
+.react-calendar__tile {
+  padding: 1.2rem 0.5rem;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d9534f;
+}
+
+.marked-date {
+  background: #ffe066;
+  border-radius: 50%;
+  font-weight: bold;
+}

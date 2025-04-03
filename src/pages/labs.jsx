@@ -1,6 +1,7 @@
 import React from 'react';
 import Chat from '../components/Chat';
-import Calendar from '../components/Calendar';
+import Calendar from '../components/calendar';
+import '../pages/labs.css'
 
 const Labs = () => {
   return (
