@@ -32,9 +32,13 @@ app.use('/api/calendar', calendarRoutes);
 io.on("connection", (socket) => {
   console.log("A user connected");
 
-  socket.on("new message sent", (msg) => {
-    console.log("Broadcasting message:", msg);
-    io.emit("new message to relay", msg);
+  socket.on("new message sent", (data) => {
+    console.log("Message received:", data);
+
+    io.emit("new message to relay", {
+      sender: data.sender,
+      message: data.message,
+    });
   });
 
   socket.on("disconnect", () => {

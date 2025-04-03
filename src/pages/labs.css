@@ -1,0 +1,66 @@
+.react-calendar {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.4rem;
+}
+
+.react-calendar__tile {
+  padding: 1.2rem 0.5rem;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d9534f;
+}
+
+.marked-date {
+  background: #ffe066;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.chat-box {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.chat-message {
+  padding: 0.3rem 0.6rem;
+  margin-bottom: 0.3rem;
+  background-color: #e6f0ff;
+  border-radius: 4px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
