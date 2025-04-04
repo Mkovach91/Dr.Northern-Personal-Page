@@ -5,13 +5,11 @@ import '../pages/labs.css'
 
 const Labs = () => {
   return (
-    <div className="labs-page" style={{ display: 'flex', gap: '2rem' }}>
-      <div style={{ flex: 1 }}>
-        <h2>Web Chat</h2>
+    <div className="labs-container">
+      <div className="chat-section">
         <Chat />
       </div>
-      <div style={{ flex: 1 }}>
-        <h2>Shared Calendar</h2>
+      <div className="calendar-section">
         <Calendar />
       </div>
     </div>

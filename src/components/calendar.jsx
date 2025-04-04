@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import enUS from 'date-fns/locale/en-US';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -13,7 +14,7 @@ const SharedCalendar = () => {
   // Load marked dates on mount
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     fetch(`${API_BASE}/api/calendar`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -26,18 +27,18 @@ const SharedCalendar = () => {
   const onDateClick = async (date) => {
     setSelectedDate(date);
     const token = localStorage.getItem("token");
-  
+
     const response = await fetch(`${API_BASE}/api/calendar/comments?date=${date.toISOString()}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-  
+
     if (!response.ok) {
       console.error("Failed to fetch comments:", await response.text());
       return;
     }
-  
+
     const data = await response.json();
     setComments(data);
   };
@@ -45,7 +46,7 @@ const SharedCalendar = () => {
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) return;
     const token = localStorage.getItem("token");
-  
+
     const response = await fetch(`${API_BASE}/api/calendar/comments`, {
       method: 'POST',
       headers: {
@@ -54,7 +55,7 @@ const SharedCalendar = () => {
       },
       body: JSON.stringify({ date: selectedDate, comment: newComment })
     });
-  
+
     if (response.ok) {
       const updated = await response.json();
       setComments(updated);
@@ -68,6 +69,7 @@ const SharedCalendar = () => {
     <div>
       <Calendar
         onClickDay={onDateClick}
+        locale="en-US"
         tileClassName={({ date }) =>
           markedDates.find(d => new Date(d).toDateString() === date.toDateString())
             ? 'marked-date'
